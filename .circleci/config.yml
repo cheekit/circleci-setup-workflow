@@ -12,3 +12,6 @@ workflows:
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
+            
+            
+# test build
