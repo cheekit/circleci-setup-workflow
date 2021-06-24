@@ -38,4 +38,4 @@ workflows:
             src/client/.* build-client true
           filters:
             branches:
-              only: gitlab-flow
+              only: main
