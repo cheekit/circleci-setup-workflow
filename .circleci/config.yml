@@ -12,13 +12,12 @@ jobs:
       - image: cimg/python:3.8
     steps:
       - checkout
-      # - run:
-      #     name: get branch
-      #     command: |
-      #         branch=production
-      #         echo 'export BASE_REVISION=$branch' >> $BASH_ENV
+      - run:
+          name: get branch
+          command: |
+              echo 'export BASE_REVISION=main' >> $BASH_ENV
       - path-filtering/set-parameters:
-          base-revision: main
+          base-revision: $BASE_REVISION
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
