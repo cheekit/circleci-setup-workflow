@@ -29,7 +29,7 @@ workflows:
   setup-workflow:
     when:
       or:
-        - equal: [ gitlab-flow, << pipeline.git.branch >> ]
+        - equal: [ gitlab-flow-2, << pipeline.git.branch >> ]
     jobs:
       - path-filtering/filter:
           base-revision: remotes/origin/production
