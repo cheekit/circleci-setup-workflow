@@ -39,4 +39,7 @@ workflows:
           filters:
             branches:
               only: gitlab-flow
-      - build
+      - build:
+          filters:
+            branches:
+              only: gitlab-flow
