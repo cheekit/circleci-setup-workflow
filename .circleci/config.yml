@@ -14,8 +14,6 @@ jobs:
       - run:
           name: get branch
           command: |
-              # return main if job isn't trigered by PR
-              # return pre-production or production if job is trigered by PR
               branch=production
               echo 'export BASE_REVISION=$branch' >> $BASH_ENV
       - path-filtering/set-parameters:
