@@ -3,13 +3,31 @@ version: 2.1
 setup: true
 
 orbs:
-  path-filtering: circleci/path-filtering@dev:alpha
+  path-filtering: circleci/path-filtering@0.0.2
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      - checkout
+      - run:
+          name: get branch
+          command: |
+              # return main if job isn't trigered by PR
+              # return pre-production or production if job is trigered by PR
+              branch=production
+              echo 'export BASE_REVISION=$branch' >> $BASH_ENV
+      - path-filtering/set-parameters:
+          base-revision: ${BASE_REVISION}
+          mapping: |
+            src/server/.* build-server true
+            src/client/.* build-client true
+      - continuation/continue:
+          configuration_path: << parameters.config-path >>
+          parameters: /tmp/pipeline-parameters.json
 
 workflows:
   setup-workflow:
     jobs:
-      - path-filtering/filter:
-          base-revision: << pipeline.git.branch >>
-          mapping: |
-            src/server/.* build-server true
-            src/client/.* build-client true
+      - build
