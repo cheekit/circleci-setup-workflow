@@ -15,10 +15,9 @@ jobs:
       - run:
           name: checkout branch and set base-revision
           command: |
-              git branch production remotes/origin/production
-              echo 'export BASE_REVISION=production' >> $BASH_ENV
+              echo 'export BASE_REVISION=remotes/origin/production' >> $BASH_ENV
       - path-filtering/set-parameters:
-          base-revision: production
+          base-revision: $BASE_REVISION
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
