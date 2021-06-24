@@ -16,9 +16,9 @@ jobs:
           name: get branch
           command: |
               branch="production"
-              echo 'export BASE_REVISION=$branch' >> $BASH_ENV
+              echo 'export BASE_REVISION_=$branch' >> $BASH_ENV
       - path-filtering/set-parameters:
-          base-revision: ${BASE_REVISION}
+          base-revision: $BASE_REVISION_
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
