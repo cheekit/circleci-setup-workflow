@@ -4,42 +4,17 @@ setup: true
 
 orbs:
   path-filtering: circleci/path-filtering@0.0.2
-  continuation: circleci/continuation@0.1.2
-
-jobs:
-  build:
-    docker:
-      - image: cimg/python:3.8
-    steps:
-      - checkout
-#       - run:
-#           name: checkout branch and set base-revision
-#           command: |
-#               echo 'export BASE_REVISION=remotes/origin/production' >> $BASH_ENV
-#       - path-filtering/set-parameters:
-#           base-revision: $BASE_REVISION
-#           mapping: |
-#             src/server/.* build-server true
-#             src/client/.* build-client true
-#       - continuation/continue:
-#           configuration_path: .circleci/continue_config.yml
-#           parameters: /tmp/pipeline-parameters.json
 
 workflows:
   setup-workflow:
-    # when:
-    #   or:
-    #     - equal: [ gitlab-flow-2, << pipeline.git.branch >> ]
     jobs:
       - path-filtering/filter:
           base-revision: remotes/origin/production
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
-          filters:
-            branches:
-              only: main
-      - build:
-          filters:
-            branches:
-              only: gitlab-flow
+      - path-filtering/filter:
+          name: test
+          mapping: |
+            src/server/.* build-server true
+            src/client/.* build-client true
