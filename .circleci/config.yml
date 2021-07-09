@@ -14,6 +14,7 @@ workflows:
             src/server/.* build-server true
             src/client/.* build-client true
   setup-workflow-2:
+    jobs:
       - path-filtering/filter:
           name: test
           mapping: |
