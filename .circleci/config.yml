@@ -7,17 +7,23 @@ orbs:
 
 workflows:
   setup-workflow:
+    when: 
+      or:
+        - equal: [ gitlab-flow, << pipeline.git.branch >> ]
     jobs:
       - path-filtering/filter:
           base-revision: remotes/origin/production
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
-          filters:
-            branches:
-              only: gitlab-flow
+#           filters:
+#             branches:
+#               only: gitlab-flow
 
   setup-workflow-2:
+    when: 
+      or:
+        - equal: [ master, << pipeline.git.branch >> ]
     jobs:
       - path-filtering/filter:
           name: test
