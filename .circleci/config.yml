@@ -20,6 +20,7 @@ workflows:
   setup-workflow-2:
     jobs:
       - path-filtering/filter:
+          name: test
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
@@ -30,6 +31,7 @@ workflows:
   setup-workflow-3:
     jobs:
       - path-filtering/filter:
+          name: test2
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
