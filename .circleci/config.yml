@@ -15,6 +15,7 @@ workflows:
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
+
   setup-workflow-2:
     when: 
       equal: [ master, << pipeline.git.branch >> ]
@@ -23,9 +24,10 @@ workflows:
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
+
   setup-workflow-3:
     unless: 
-      and:
+      or:
         - equal: [ gitlab-flow, << pipeline.git.branch >> ]
         - equal: [ master, << pipeline.git.branch >> ]
     jobs:
@@ -33,3 +35,4 @@ workflows:
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
+
