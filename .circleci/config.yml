@@ -14,29 +14,20 @@ workflows:
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
-#           filters:
-#             branches:
-#               only: gitlab-flow
 
   setup-workflow-2:
     when: [ master, << pipeline.git.branch >> ]
     jobs:
       - path-filtering/filter:
-          name: test
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
-#           filters:
-#             branches:
-#               only: master
 
   setup-workflow-3:
+    when: [ master, << pipeline.git.branch >> ]
     jobs:
       - path-filtering/filter:
-          name: test2
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
-          filters:
-            branches:
-              only: master-2
+
