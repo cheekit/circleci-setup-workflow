@@ -25,3 +25,14 @@ workflows:
             src/server/.* build-server true
             src/client/.* build-client true
 
+  setup-workflow-3:
+    unless: 
+      and:
+        - equal: [ gitlab-flow, << pipeline.git.branch >> ]
+        - equal: [ master, << pipeline.git.branch >> ]
+    jobs:
+      - path-filtering/filter:
+          mapping: |
+            src/server/.* build-server true
+            src/client/.* build-client true
+
