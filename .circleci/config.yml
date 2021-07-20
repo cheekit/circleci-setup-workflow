@@ -27,7 +27,7 @@ workflows:
 
   setup-workflow-3:
     unless: 
-      and:
+      or:
         - equal: [ gitlab-flow, << pipeline.git.branch >> ]
         - equal: [ master, << pipeline.git.branch >> ]
     jobs:
