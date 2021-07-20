@@ -3,13 +3,33 @@ version: 2.1
 setup: true
 
 orbs:
-  path-filtering: circleci/path-filtering@dev:alpha
+  path-filtering: circleci/path-filtering@0.0.2
 
 workflows:
   setup-workflow:
+    when: 
+      equal: [ gitlab-flow, << pipeline.git.branch >> ]
     jobs:
       - path-filtering/filter:
-          base-revision: << pipeline.git.branch >>
+          base-revision: remotes/origin/production
+          mapping: |
+            src/server/.* build-server true
+            src/client/.* build-client true
+  setup-workflow-2:
+    when: 
+      equal: [ master, << pipeline.git.branch >> ]
+    jobs:
+      - path-filtering/filter:
+          mapping: |
+            src/server/.* build-server true
+            src/client/.* build-client true
+  setup-workflow-3:
+    unless: 
+      or:
+        - equal: [ gitlab-flow, << pipeline.git.branch >> ]
+        - equal: [ master, << pipeline.git.branch >> ]
+    jobs:
+      - path-filtering/filter:
           mapping: |
             src/server/.* build-server true
             src/client/.* build-client true
