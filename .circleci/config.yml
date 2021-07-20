@@ -28,13 +28,13 @@ workflows:
             branches:
               only: master
 
-  setup-workflow-3:
-    jobs:
-      - path-filtering/filter:
-          name: test2
-          mapping: |
-            src/server/.* build-server true
-            src/client/.* build-client true
-          filters:
-            branches:
-              only: master-2
+#   setup-workflow-3:
+#     jobs:
+#       - path-filtering/filter:
+#           name: test2
+#           mapping: |
+#             src/server/.* build-server true
+#             src/client/.* build-client true
+#           filters:
+#             branches:
+#               only: master-2
