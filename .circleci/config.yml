@@ -55,9 +55,9 @@ workflows:
     when: << pipeline.parameters.run-build-service-2-job >>
     jobs:
       - maven/test:
-        name: build-service-2
-        command: 'install -DskipTests'
-        app_src_directory: 'service2'
+          name: build-service-2
+          command: 'install -DskipTests'
+          app_src_directory: 'service2'
   # when pipeline parameter, run-build-service-1-job OR
   # run-build-service-2-job is true, run-integration-tests job is
   # triggered. see:
@@ -68,10 +68,10 @@ workflows:
       or: [<< pipeline.parameters.run-build-service-1-job >>, << pipeline.parameters.run-build-service-2-job >>]
     jobs:
       - maven/test:
-        name: run-integration-tests
-        command: '-X verify'
-        app_src_directory: 'tests'
-  # the check-updated-files job is always triggered, regardless of
+          name: run-integration-tests
+          command: '-X verify'
+          app_src_directory: 'tests'
+    # the check-updated-files job is always triggered, regardless of
   # pipeline parameters.
   always-run:
     jobs:
