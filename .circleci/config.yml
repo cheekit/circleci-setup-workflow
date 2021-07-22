@@ -26,9 +26,9 @@ jobs:
   # service1 artifacts into the maven repository (it does not run
   # tests).
   build-service-1:
-      - maven/test:
-          command: 'install -DskipTests'
-          app_src_directory: 'service1'
+    - maven/test:
+        command: 'install -DskipTests'
+        app_src_directory: 'service1'
   # the build-service-2 job uses the maven orb to build and install
   # service2 artifacts into the maven repository (it does not run
   # tests).
