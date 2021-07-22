@@ -81,8 +81,8 @@ workflows:
           # line:
           # <regex path-to-test> <parameter-to-set> <value-of-pipeline-parameter>
           mapping: |
-            service1/.* run-build-service-1-job true
-            service2/.* run-build-service-2-job true
+            src/client/.* run-build-service-1-job true
+            src/server/.* run-build-service-2-job true
           base-revision: master
           # this is the path of the configuration we should trigger once
           # path filtering and pipeline parameter value updates are
