@@ -1,7 +1,7 @@
 version: 2.1
 
 # this allows you to use CircleCI's dynamic configuration feature
-setup: true
+setup: << pipeline.parameters.run-setup >>
 
 # the path-filtering orb is required to continue a pipeline based on
 # the path of an updated fileset the maven orb is also used, as an
@@ -13,6 +13,9 @@ orbs:
 # the default pipeline parameters, which will be updated according to
 # the results of the path-filtering orb
 parameters:
+  run-setup:
+    type: boolean
+    default: true
   run-build-service-1-job:
     type: boolean
     default: false
@@ -71,9 +74,10 @@ workflows:
           name: run-integration-tests
           command: '-X verify'
           app_src_directory: 'tests'
-    # the check-updated-files job is always triggered, regardless of
+  # the check-updated-files job is always triggered, regardless of
   # pipeline parameters.
   always-run:
+    when: << pipeline.parameters.run-setup >>
     jobs:
       # the path-filtering/filter job determines which pipeline
       # parameters to update.
@@ -83,6 +87,7 @@ workflows:
           # line:
           # <regex path-to-test> <parameter-to-set> <value-of-pipeline-parameter>
           mapping: |
+            .* run-setup false
             src/client/.* run-build-service-1-job true
             src/server/.* run-build-service-2-job true
           base-revision: main
